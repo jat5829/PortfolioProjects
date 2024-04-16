@@ -78,29 +78,6 @@ WHERE dea.continent IS NOT NULL
 SELECT *, (Rolling_People_Vaccinated/Population) * 100 AS New_Percentage_Vaccinated
 FROM PopvsVac;
 
--- Temp Table
-
-DROP TABLE IF EXISTS PercentPopulationVaccinated;
-CREATE TABLE PercentPopulationVaccinated
-(
-	Continent varchar(255),
-	Locations varchar(255),
-	Dates date,
-	Population numeric,
-	New_Vaccinations numeric,
-	Rolling_People_Vaccinated numeric
-);
-
-INSERT INTO PercentPopulationVaccinated
-SELECT dea.continent, dea.locations, dea.dates, dea.population, vac.new_vaccinations, SUM(vac.new_vaccinations) OVER (PARTITION BY dea.locations ORDER BY dea.locations, dea.dates) AS Rolling_People_Vaccinated
-FROM coviddeaths AS dea
-JOIN covidvaccinations AS vac
-	ON dea.locations = vac.locations
-	AND dea.dates = vac.dates
-WHERE dea.continent IS NOT NULL;
-
-SELECT *, (Rolling_People_Vaccinated/Population) * 100 AS New_Percentage_Vaccinated
-FROM PercentPopulationVaccinated;
 
 -- Creating View to Store Data for later Visualizations
 
