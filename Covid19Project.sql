@@ -1,3 +1,9 @@
+/*
+
+Queries used for Covid-19 Mortality Rate Project and exploring the data
+
+*/
+
 SELECT locations, dates, total_cases, new_cases, total_deaths, population
 FROM coviddeaths
 WHERE continent IS NOT NULL
