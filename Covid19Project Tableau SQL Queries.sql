@@ -27,7 +27,7 @@ GROUP BY locations
 ORDER BY Total_Death_Count DESC;
 
 
--- 3.Percentage of Population Infected Per Country
+-- 3. Percentage of Population Infected Per Country
 
 SELECT locations, population, MAX(total_cases) AS Highest_Infection_Count, MAX((total_cases::numeric/population::numeric)) * 100 AS Percent_Population_Infected
 FROM coviddeaths
